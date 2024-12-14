@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildfire Surveillance</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('wildfire.jpg') no-repeat center center/cover;
+            font-family: Arial, sans-serif;
+            color: white;
+            position: relative; /* เพิ่มตำแหน่ง relative */
+            transition: filter 0.3s ease;
+        }
+
+        h1 {
+            font-size: 3rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            text-align: center;
+        }
+
+        .navbar {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .navbar button {
+            background-color: rgba(0, 0, 0, 0.6);
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .navbar button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            transform: scale(1.1);
+        }
+
+        /* ป๊อปอัพ */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            z-index: 2; /* ทำให้ป๊อปอัพอยู่เหนือพื้นหลัง */
+            animation: popupShow 0.5s ease forwards;
+        }
+
+        .popup.active {
+            display: block;
+        }
+
+        /* เคลื่อนไหวของป๊อปอัพ */
+        @keyframes popupShow {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        /* เมื่อเปิดป๊อปอัพให้หน้าหลักเบลอ */
+        .blurred {
+            backdrop-filter: blur(5px);
+            filter: blur(5px);
+            transition: filter 0.3s ease;
+        }
+
+        .popup button {
+            margin-top: 15px;
+            background-color: white;
+            color: black;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .popup button:hover {
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+    <h1>Wildfire Surveillance System Using LoRa Mesh Network</h1>
+
+    <div class="navbar">
+        <button onclick="showPopup('home')">Home</button>
+        <button onclick="showPopup('project')">Project</button>
+        <button onclick="showPopup('contact')">Contact</button>
+    </div>
+
+    <div id="home"></div>
+
+    <div id="project" class="popup">
+        <p>This Project aims to develop a wildfire prevention system utilizing a LoRa mesh network as a medium for wildfire monitoring and preparedness. The system seeks to reduce the need for manpower in wildfire detection by employing sensors to evaluate conditions that may lead to fires. When specific fire-prone conditions are detected, the system transmits data through microcontroller boards, which manage the information on a centralized server. Communication is based on a mesh networking model, where nodes that cannot directly transmit data to the gateway relay the information through the nearest nodes until it reaches the gateway.</p>
+        
+        <button onclick="closePopup('project')">Close</button>
+    </div>
+
+    <div id="contact" class="popup">
+        <h2>Our Member</h2>
+        <p>Gittamade Suengsiri</p>
+        <p>E-mail : 64010016@kmitl.ac.th</p>
+        <p>---------------------------------------------------</p>
+        <p>Jarasporn Sadao</p>
+        <p>E-mail : 64010087@kmitl.ac.th</p>
+        <p>---------------------------------------------------</p>
+        <p>Pimpisa Chumthong</p>
+        <p>E-mail : 64010603@kmitl.ac.th</p>
+
+        <button onclick="closePopup('contact')">Close</button>
+    </div>
+
+    <script>
+        function showPopup(id) {
+            // Hide all popups
+            let popups = document.querySelectorAll('.popup');
+            popups.forEach(popup => popup.classList.remove('active'));
+
+            // Apply blur effect to the body
+            //document.body.classList.add('blurred'); ------
+
+            // Show the clicked popup
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closePopup(id) {
+            // Remove blur effect from the body
+            document.body.classList.remove('blurred');
+            document.getElementById(id).classList.remove('active');
+        }
+    </script>
+</body>
+</html>
